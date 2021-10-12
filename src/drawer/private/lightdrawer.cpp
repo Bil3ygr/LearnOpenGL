@@ -30,12 +30,15 @@ void LightDrawer::Init()
         pointers, sizeof(pointers) / sizeof(pointers[0]),
         enable_pointers
     );
-    // SetCleanColor(glm::vec3(0.0f));
 }
 
 void LightDrawer::_Render()
 {
     if (!light_)
+        return;
+
+    // directional light, not draw
+    if (light_.get()->vector().w == 0.0f)
         return;
 
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -49,10 +52,9 @@ void LightDrawer::_Render()
     // practice, rotate with time
     glm::mat4 light_model(1.0f);
     // glm::mat4 light_model = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * glm::radians(60.0f), glm::vec3(0, 1.0f, 0));
-    light_model = glm::translate(light_model, glm::vec3(1.2f, 1.0f, 2.0f));
+    light_model = glm::translate(light_model, glm::vec3(light_.get()->vector()));
+    // light_model = glm::translate(light_model, glm::vec3(1.2f, 1.0f, 2.0f));
     light_model = glm::scale(light_model, glm::vec3(0.2f));
-
-    light_.get()->position(light_model[3]);
 
     ShaderManager::Instance().SetMat4(program_, "model", light_model);
 

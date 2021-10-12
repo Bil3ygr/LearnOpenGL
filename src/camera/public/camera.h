@@ -34,6 +34,7 @@ public:
     void pos(const glm::vec3& pos) { pos_ = pos; }
     const glm::vec3& pos() const { return pos_; }
     const float& fov() const { return fov_; }
+    const glm::vec3& front() const { return front_; }
 
     void MoveLeft();
     void MoveRight();

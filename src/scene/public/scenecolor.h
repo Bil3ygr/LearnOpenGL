@@ -5,7 +5,7 @@
 
 #include <memory>
 
-#include "scenemanager.h"
+#include "scene.h"
 #include "utils/public/lightmanager.h"
 #include "ui/public/colorui.h"
 

@@ -10,5 +10,6 @@
 #include "scenespace.h"
 #include "scenecolor.h"
 #include "scenelightmap.h"
+#include "scenelightcaster.h"
 
 #endif // !SRC_SCENE_SCENEHEADER_H_

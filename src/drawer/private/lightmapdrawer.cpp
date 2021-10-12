@@ -17,7 +17,7 @@ LightmapDrawer::LightmapDrawer()
 
 LightmapDrawer::~LightmapDrawer()
 {
-    depth_test(false);
+    glDisable(GL_DEPTH_TEST);
     camera_ = nullptr;
     light_ = nullptr;
     texture_ = 0;
@@ -27,7 +27,7 @@ LightmapDrawer::~LightmapDrawer()
 
 void LightmapDrawer::Init()
 {
-    depth_test(true);
+    glEnable(GL_DEPTH_TEST);
 
     SetShader("shader\\lightmap_vs.glsl", "shader\\lightmap_fs.glsl");
 
@@ -44,6 +44,7 @@ void LightmapDrawer::Init()
 
 void LightmapDrawer::_Render()
 {
+    glClear(GL_DEPTH_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     glBindVertexArray(vao_);
@@ -55,7 +56,7 @@ void LightmapDrawer::_Render()
     ShaderManager::Instance().SetVec3(program_, "light.ambient", light_.get()->ambient());
     ShaderManager::Instance().SetVec3(program_, "light.diffuse", light_.get()->diffuse());
     ShaderManager::Instance().SetVec3(program_, "light.specular", light_.get()->specular());
-    ShaderManager::Instance().SetVec3(program_, "light.position", light_.get()->position());
+    ShaderManager::Instance().SetVec4(program_, "light.vector", light_.get()->vector());
 
     {
         ShaderManager::Instance().SetInt(program_, "material.diffuse", 0);

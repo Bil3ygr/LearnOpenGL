@@ -17,7 +17,11 @@ void main()
     vec3 ambient = light.ambient * material.ambient;
 
     vec3 norm = normalize(normal);
-    vec3 lightDir = normalize(light.position - fragPos);
+    vec3 lightDir;
+    if (light.vector.w == 1.0)
+        lightDir = normalize(light.vector.xyz - fragPos);
+    else
+        lightDir = normalize(-light.vector.xyz);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = light.diffuse * (diff * material.diffuse);
 

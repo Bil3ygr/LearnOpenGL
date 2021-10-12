@@ -4,7 +4,7 @@
 #include "/shader/defines_light.glsl"
 
 uniform LightmapMaterial material;
-uniform Light light;
+uniform PointLight light;
 uniform vec3 viewPos;
 
 in vec3 fragPos;
@@ -18,11 +18,7 @@ void main()
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
 
     vec3 norm = normalize(normal);
-    vec3 lightDir;
-    if (light.vector.w == 1.0)
-        lightDir = normalize(light.vector.xyz - fragPos);
-    else
-        lightDir = normalize(-light.vector.xyz);
+    vec3 lightDir = normalize(light.position - fragPos);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
 
@@ -31,6 +27,9 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
 
+    float dist = length(light.position - fragPos);
+    float attenuation = 1.0 / (light.constant + light.linear * dist + light.quadratic * (dist * dist));
+
     vec3 result = ambient + diffuse + specular;
-    fragColor = vec4(result, 1.0);
+    fragColor = vec4(result * attenuation, 1.0);
 }

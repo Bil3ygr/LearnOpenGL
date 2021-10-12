@@ -3,9 +3,10 @@
 #ifndef SRC_SCENE_SCENESPACE_H_
 #define SRC_SCENE_SCENESPACE_H_
 
-#include "scenemanager.h"
+#include "scene.h"
 
 #include "ui/public/spaceui.h"
+#include "utils/public/lightmanager.h"
 
 class SceneSpace: public Scene
 {

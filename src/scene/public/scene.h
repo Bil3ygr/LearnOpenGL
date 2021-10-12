@@ -18,6 +18,7 @@ enum class SceneType
     kSpace,
     kColor,
     kLightmap,
+    kLightcaster,
 };
 
 inline char* SceneTypeToString(const SceneType& type)
@@ -34,6 +35,8 @@ inline char* SceneTypeToString(const SceneType& type)
         return "Color";
     case SceneType::kLightmap:
         return "Lightmap";
+    case SceneType::kLightcaster:
+        return "Lightcaster";
     case SceneType::kDefault:
         return "Default";
     case SceneType::kUnknown:

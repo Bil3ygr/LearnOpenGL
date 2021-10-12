@@ -17,6 +17,7 @@ void RegisterScene()
     REGISTER_SCENE_CREATOR(SceneType::kSpace, SceneSpace);
     REGISTER_SCENE_CREATOR(SceneType::kColor, SceneColor);
     REGISTER_SCENE_CREATOR(SceneType::kLightmap, SceneLightmap);
+    REGISTER_SCENE_CREATOR(SceneType::kLightcaster, SceneLightcaster);
 }
 
 void RegisterKeyboard()
@@ -28,6 +29,7 @@ void RegisterKeyboard()
     REGISTER_KEYBOARD_PRESS(GLFW_KEY_3, std::string(SceneTypeToString(SceneType::kSpace)), SWITCH_SCENE(SceneType::kSpace));
     REGISTER_KEYBOARD_PRESS(GLFW_KEY_4, std::string(SceneTypeToString(SceneType::kColor)), SWITCH_SCENE(SceneType::kColor));
     REGISTER_KEYBOARD_PRESS(GLFW_KEY_5, std::string(SceneTypeToString(SceneType::kLightmap)), SWITCH_SCENE(SceneType::kLightmap));
+    REGISTER_KEYBOARD_PRESS(GLFW_KEY_6, std::string(SceneTypeToString(SceneType::kLightcaster)), SWITCH_SCENE(SceneType::kLightcaster));
 }
 
 void InputModeChanged(int button, int action, int mods)

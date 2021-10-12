@@ -83,7 +83,7 @@ void ColorLightingDrawer::_Render()
     {
         ShaderManager::Instance().SetVec3(program_, "objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
         ShaderManager::Instance().SetVec3(program_, "lightColor", glm::vec3(1.0f));
-        ShaderManager::Instance().SetVec3(program_, "lightPos", light_.get()->position());
+        ShaderManager::Instance().SetVec3(program_, "lightPos", glm::vec3(light_.get()->vector()));
         ShaderManager::Instance().SetMat4(program_, "model", glm::mat4(1.0f));
         ShaderManager::Instance().SetFloat(program_, "specularStrength", 0);
 
@@ -93,7 +93,7 @@ void ColorLightingDrawer::_Render()
     {
         ShaderManager::Instance().SetVec3(program_, "objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
         ShaderManager::Instance().SetVec3(program_, "lightColor", glm::vec3(1.0f));
-        ShaderManager::Instance().SetVec3(program_, "lightPos", light_.get()->position());
+        ShaderManager::Instance().SetVec3(program_, "lightPos", glm::vec3(light_.get()->vector()));
         glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(2.4f, 0.0f, 0.0f));
         ShaderManager::Instance().SetMat4(program_, "model", model);
         ShaderManager::Instance().SetVec3(program_, "viewPos", camera_.get()->pos());
@@ -131,7 +131,7 @@ void ColorMaterialDrawer::_Render()
     ShaderManager::Instance().SetVec3(program_, "light.ambient", light_.get()->ambient());
     ShaderManager::Instance().SetVec3(program_, "light.diffuse", light_.get()->diffuse());
     ShaderManager::Instance().SetVec3(program_, "light.specular", light_.get()->specular());
-    ShaderManager::Instance().SetVec3(program_, "light.position", light_.get()->position());
+    ShaderManager::Instance().SetVec4(program_, "light.vector", light_.get()->vector());
     // draw sliver cube
     {
         // ShaderManager::Instance().SetVec3(program_, "material.ambient", 0.19225f, 0.19225f, 0.19225f);
@@ -156,7 +156,7 @@ void ColorMaterialDrawer::_Render()
         ShaderManager::Instance().SetFloat(program_, "material.shininess", 0.4f * 128);
 
         // ShaderManager::Instance().SetVec3(program_, "lightColor", glm::vec3(1.0f));
-        // ShaderManager::Instance().SetVec3(program_, "lightPos", light_.get()->position());
+        // ShaderManager::Instance().SetVec3(program_, "lightPos", glm::vec3(light_.get()->vector()));
         glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(2.4f, 0.0f, 0.0f));
         ShaderManager::Instance().SetMat4(program_, "model", model);
 
@@ -226,7 +226,7 @@ void ColorMaterialTableDrawer::_Render()
     ShaderManager::Instance().SetVec3(program_, "light.ambient", light_.get()->ambient());
     ShaderManager::Instance().SetVec3(program_, "light.diffuse", light_.get()->diffuse());
     ShaderManager::Instance().SetVec3(program_, "light.specular", light_.get()->specular());
-    ShaderManager::Instance().SetVec3(program_, "light.position", light_.get()->position());
+    ShaderManager::Instance().SetVec4(program_, "light.vector", light_.get()->vector());
 
     for (int i = 0; i < materials_.size(); i++)
     {
