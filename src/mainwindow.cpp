@@ -1,0 +1,95 @@
+#include "mainwindow.h"
+
+#include "utils/public/helper.h"
+#include "scene/public/sceneheader.h"
+#include "utils/public/keyboardmanager.h"
+#include "utils/public/timemanager.h"
+#include "ui/public/uimanager.h"
+
+void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+
+MainWindow::MainWindow()
+{
+    window_ = nullptr;
+    initial_ = false;
+    success_ = false;
+    last_time_ = 0.0f;
+}
+
+MainWindow::~MainWindow()
+{
+    glfwTerminate();
+    window_ = nullptr;
+}
+
+void MainWindow::Loop()
+{
+    if (!success_ || !window_)
+        return;
+
+    float current_time = glfwGetTime();
+    TimeManager::Instance().deltaTime(current_time - last_time_);
+    last_time_ = current_time;
+
+    KeyboardManager::Instance().ProcessKeyEvent(window_);
+
+    SceneManager::Instance().RenderScene();
+
+    glfwSwapBuffers(window_);
+    glfwPollEvents();
+}
+
+void MainWindow::Close()
+{
+    glfwSetWindowShouldClose(window_, true);
+}
+
+bool MainWindow::Alive()
+{
+    if (!success_ || !window_)
+        return false;
+    if (glfwWindowShouldClose(window_))
+    {
+        glfwTerminate();
+        window_ = nullptr;
+        return false;
+    }
+    return true;
+}
+
+void MainWindow::Init()
+{
+    if (initial_)
+        return;
+
+    initial_ = true;
+
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    window_ = glfwCreateWindow(WITDH, HEIGHT, PROJECT_NAME, NULL, NULL);
+    if (!window_)
+    {
+        ERROR("Failed to create GLFW window\n");
+        glfwTerminate();
+        return;
+    }
+    glfwMakeContextCurrent(window_);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        ERROR("Failed to initialize GLAD\n");
+        glfwTerminate();
+        return;
+    }
+
+    glViewport(0, 0, WITDH, HEIGHT);
+    glfwSetFramebufferSizeCallback(window_, FramebufferSizeCallback);
+
+    success_ = true;
+}

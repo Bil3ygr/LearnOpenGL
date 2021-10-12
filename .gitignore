@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+build/
+include/boost/
+include/GLFW/
+lib/
