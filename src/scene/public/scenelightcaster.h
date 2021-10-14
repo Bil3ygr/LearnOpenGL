@@ -27,12 +27,22 @@ public:
     void SetLightSpecular(const glm::vec3& value);
     glm::vec3 GetLightSpecular();
 
-    void SetLightVector3(const glm::vec3& value);
-    glm::vec3 GetLightVector3();
+    void SetDirLightDirection(const glm::vec3& value);
+    glm::vec3 GetDirLightDirection();
 
-    void SetIsPointLight(const bool& check);
-    bool IsPointLight();
+    void SetPointLightPosition(const glm::vec3& value);
+    glm::vec3 GetPointLightPosition();
+    void SetPointLightConstant(const float& value);
+    float GetPointLightConstant();
+    void SetPointLightLinear(const float& value);
+    float GetPointLightLinear();
+    void SetPointLightQuadratic(const float& value);
+    float GetPointLightQuadratic();
 
+    void SetSpotLightPosition(const glm::vec3& value);
+    glm::vec3 GetSpotLightPosition();
+    void SetSpotLightDirection(const glm::vec3& value);
+    glm::vec3 GetSpotLightDirection();
     void SetSpotLightCutoff(const float& cutoff);
     float GetSpotLightCutoff();
     void SetSpotLightOutterCutoff(const float& outter_cutoff);
@@ -40,7 +50,8 @@ public:
 
 private:
     const SceneType type_ = SceneType::kLightcaster;
-    std::shared_ptr<Light> light_;
+    std::shared_ptr<DirLight> dir_light_;
+    std::shared_ptr<PointLight> point_light_;
     std::shared_ptr<SpotLight> spot_light_;
     LightcasterUI* ui_;
 };

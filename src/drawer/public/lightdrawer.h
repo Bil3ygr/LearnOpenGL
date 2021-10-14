@@ -16,13 +16,15 @@ public:
 
     void Init();
 
-    void SetLight(std::shared_ptr<Light> light) { light_ = light; }
+    void SetPointLight(std::shared_ptr<PointLight> light);
+    void SetSpotLight(std::shared_ptr<SpotLight> light);
 
 protected:
     virtual void _Render();
 
     SCamera camera_;
-    std::shared_ptr<Light> light_;
+    std::shared_ptr<PointLight> point_light_;
+    std::shared_ptr<SpotLight> spot_light_;
 };
 
 #endif // !SRC_DRAWER_LIGHTDRAWER_H_

@@ -45,7 +45,7 @@ void TextureDrawer::Init()
     );
 
     textures_.emplace_back(TextureManager::Instance().GetTexture("res\\container.jpg"));
-    textures_.emplace_back(TextureManager::Instance().GetTexture("res\\awesomeface.png"));
+    textures_.emplace_back(TextureManager::Instance().GetTexture("res\\93365078_p1_master1200.png"));
 }
 
 void TextureDrawer::_Render()

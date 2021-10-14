@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.8.0)
+project(LearningOpenGL VERSION 0.1.0)
+
+message(STATUS "Configure ${RENDEROBJECT_DIR}")
+
+file(GLOB RENDEROBJECT_HEADER_LIST "${PUBLIC}/*.h")
+file(GLOB RENDEROBJECT_SRC_LIST "${PRIVATE}/*.cpp")
+
+set(ALL_FILES
+    ${ALL_FILES}
+    ${RENDEROBJECT_HEADER_LIST}
+    ${RENDEROBJECT_SRC_LIST}
+    PARENT_SCOPE
+)

@@ -29,7 +29,7 @@ public:
 
 private:
     const SceneType type_ = SceneType::kLightmap;
-    std::shared_ptr<Light> light_;
+    std::shared_ptr<PointLight> light_;
     LightmapUI* ui_;
 };
 

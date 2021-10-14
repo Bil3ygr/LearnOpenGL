@@ -1,20 +1,23 @@
 #include "drawer/public/lightdrawer.h"
 
 #include "utils/public/mousemanager.h"
+#include "utils/public/helper.h"
 
 LightDrawer::LightDrawer()
 {
     camera_ = CameraManager::Instance().GetDefaultCamera();
     if (!camera_)
         camera_ = CameraManager::Instance().CreateCamera(0);
-    light_ = nullptr;
+    point_light_ = nullptr;
+    spot_light_ = nullptr;
 }
 
 LightDrawer::~LightDrawer()
 {
     glDisable(GL_DEPTH_TEST);
     camera_ = nullptr;
-    light_ = nullptr;
+    point_light_ = nullptr;
+    spot_light_ = nullptr;
 }
 
 void LightDrawer::Init()
@@ -32,13 +35,29 @@ void LightDrawer::Init()
     );
 }
 
+void LightDrawer::SetPointLight(std::shared_ptr<PointLight> light)
+{
+    if (spot_light_)
+    {
+        ERROR("Already set spot light, cannot set point light!\n");
+        return;
+    }
+    point_light_ = light;
+}
+
+void LightDrawer::SetSpotLight(std::shared_ptr<SpotLight> light)
+{
+    if (point_light_)
+    {
+        ERROR("Already set point light, cannot set spot light!\n");
+        return;
+    }
+    spot_light_ = light;
+}
+
 void LightDrawer::_Render()
 {
-    if (!light_)
-        return;
-
-    // directional light, not draw
-    if (light_.get()->vector().w == 0.0f)
+    if (!point_light_ && !spot_light_)
         return;
 
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -51,22 +70,12 @@ void LightDrawer::_Render()
 
     // practice, rotate with time
     glm::mat4 light_model(1.0f);
-    // glm::mat4 light_model = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * glm::radians(60.0f), glm::vec3(0, 1.0f, 0));
-    light_model = glm::translate(light_model, glm::vec3(light_.get()->vector()));
-    // light_model = glm::translate(light_model, glm::vec3(1.2f, 1.0f, 2.0f));
+    if (point_light_)
+        light_model = glm::translate(light_model, glm::vec3(point_light_.get()->position()));
+    else if (spot_light_)
+        light_model = glm::translate(light_model, glm::vec3(spot_light_.get()->position()));
     light_model = glm::scale(light_model, glm::vec3(0.2f));
-
     ShaderManager::Instance().SetMat4(program_, "model", light_model);
 
     glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    // change color with time
-    // glm::vec3 color;
-    // color.x = sin(glfwGetTime() * 2.0f);
-    // color.y = sin(glfwGetTime() * 0.7f);
-    // color.z = sin(glfwGetTime() * 1.3f);
-    // glm::vec3 diffuse = color * glm::vec3(0.5f);
-    // glm::vec3 ambient = diffuse * glm::vec3(0.2f);
-    // light_.get()->ambient(ambient);
-    // light_.get()->diffuse(diffuse);
 }

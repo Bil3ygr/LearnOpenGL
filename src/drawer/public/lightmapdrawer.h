@@ -17,13 +17,13 @@ public:
 
     void Init();
 
-    void SetLight(std::shared_ptr<Light> light) { light_ = light; }
+    void SetLight(std::shared_ptr<PointLight> light) { light_ = light; }
 
 protected:
     virtual void _Render();
 
     SCamera camera_;
-    std::shared_ptr<Light> light_;
+    std::shared_ptr<PointLight> light_;
     GLuint texture_;
     GLuint specular_texture_;
 };

@@ -170,6 +170,7 @@ GLuint ShaderManager::CreateShader(const std::string& filename, const GLuint sha
 
 #define INCLUDE_KEY "#include"
 #define FILE_KEY "\""
+#define COMMENT_KEY "//"
 
 void ShaderManager::CheckShaderIncludes(const std::string& source)
 {

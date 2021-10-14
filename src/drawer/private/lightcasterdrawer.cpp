@@ -29,7 +29,7 @@ void LightcasterDrawer::Init()
 {
     glEnable(GL_DEPTH_TEST);
 
-    SetShader("shader\\lightmap_vs.glsl", "shader\\lightmap_fs.glsl");
+    SetShader("shader\\lightmap_vs.glsl", "shader\\lightcaster_dirlight_fs.glsl");
 
     int pointers[] = { 3, 3, 2 };
     vao_ = DrawerHelper::GetVertexArrayObject(
@@ -52,20 +52,19 @@ void LightcasterDrawer::_Render()
     camera_.get()->Update();
     ShaderManager::Instance().SetVec3(program_, "viewPos", camera_.get()->pos());
 
-    ShaderManager::Instance().SetVec3(program_, "light.ambient", light_.get()->ambient());
-    ShaderManager::Instance().SetVec3(program_, "light.diffuse", light_.get()->diffuse());
-    ShaderManager::Instance().SetVec3(program_, "light.specular", light_.get()->specular());
-    ShaderManager::Instance().SetVec4(program_, "light.vector", light_.get()->vector());
+    ShaderManager::Instance().SetVec3(program_, "dirLight.ambient", light_.get()->ambient());
+    ShaderManager::Instance().SetVec3(program_, "dirLight.diffuse", light_.get()->diffuse());
+    ShaderManager::Instance().SetVec3(program_, "dirLight.specular", light_.get()->specular());
+    ShaderManager::Instance().SetVec3(program_, "dirLight.direction", light_.get()->direction());
 
     {
-        ShaderManager::Instance().SetInt(program_, "material.diffuse", 0);
+        ShaderManager::Instance().SetInt(program_, "lightmapMaterial.diffuse", 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture_);
-        ShaderManager::Instance().SetInt(program_, "material.specular", 1);
+        ShaderManager::Instance().SetInt(program_, "lightmapMaterial.specular", 1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, specular_texture_);
-        // ShaderManager::Instance().SetVec3(program_, "material.specular", glm::vec3(0.5f));
-        ShaderManager::Instance().SetFloat(program_, "material.shininess", 64.0f);
+        ShaderManager::Instance().SetFloat(program_, "lightmapMaterial.shininess", 64.0f);
 
         glm::vec3 cubePositions[] = {
             glm::vec3( 0.0f,  0.0f,  0.0f),
@@ -117,14 +116,14 @@ void LightcasterPointLightDrawer::_Render()
     camera_.get()->Update();
     ShaderManager::Instance().SetVec3(program_, "viewPos", camera_.get()->pos());
 
-    ShaderManager::Instance().SetVec3(program_, "light.ambient", light_.get()->ambient());
-    ShaderManager::Instance().SetVec3(program_, "light.diffuse", light_.get()->diffuse());
-    ShaderManager::Instance().SetVec3(program_, "light.specular", light_.get()->specular());
-    ShaderManager::Instance().SetVec3(program_, "light.position", glm::vec3(light_.get()->vector()));
+    ShaderManager::Instance().SetVec3(program_, "pointLight.ambient", light_.get()->ambient());
+    ShaderManager::Instance().SetVec3(program_, "pointLight.diffuse", light_.get()->diffuse());
+    ShaderManager::Instance().SetVec3(program_, "pointLight.specular", light_.get()->specular());
+    ShaderManager::Instance().SetVec3(program_, "pointLight.position", light_.get()->position());
 
-    ShaderManager::Instance().SetFloat(program_, "light.constant", 1.0f);
-    ShaderManager::Instance().SetFloat(program_, "light.linear", 0.09f);
-    ShaderManager::Instance().SetFloat(program_, "light.quadratic", 0.032f);
+    ShaderManager::Instance().SetFloat(program_, "pointLight.constant", 1.0f);
+    ShaderManager::Instance().SetFloat(program_, "pointLight.linear", 0.09f);
+    ShaderManager::Instance().SetFloat(program_, "pointLight.quadratic", 0.032f);
 
     {
         ShaderManager::Instance().SetInt(program_, "material.diffuse", 0);
@@ -133,7 +132,6 @@ void LightcasterPointLightDrawer::_Render()
         ShaderManager::Instance().SetInt(program_, "material.specular", 1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, specular_texture_);
-        // ShaderManager::Instance().SetVec3(program_, "material.specular", glm::vec3(0.5f));
         ShaderManager::Instance().SetFloat(program_, "material.shininess", 64.0f);
 
         glm::vec3 cubePositions[] = {
@@ -186,30 +184,26 @@ void LightcasterSpotLightDrawer::_Render()
     camera_.get()->Update();
     ShaderManager::Instance().SetVec3(program_, "viewPos", camera_.get()->pos());
 
-    light_.get()->vector(glm::vec4(camera_.get()->pos(), 1.0f));
-    light_.get()->lightDir(camera_.get()->front());
+    light_.get()->position(camera_.get()->pos());
+    light_.get()->direction(camera_.get()->front());
 
-    ShaderManager::Instance().SetVec3(program_, "light.ambient", light_.get()->ambient());
-    ShaderManager::Instance().SetVec3(program_, "light.diffuse", light_.get()->diffuse());
-    ShaderManager::Instance().SetVec3(program_, "light.specular", light_.get()->specular());
-    ShaderManager::Instance().SetVec3(program_, "light.position", glm::vec3(light_.get()->vector()));
-    ShaderManager::Instance().SetVec3(program_, "light.direction", light_.get()->lightDir());
-    ShaderManager::Instance().SetFloat(program_, "light.cutoff", glm::cos(light_.get()->cutoff()));
-    ShaderManager::Instance().SetFloat(program_, "light.outtercutoff", glm::cos(light_.get()->outtercutoff()));
-
-    ShaderManager::Instance().SetFloat(program_, "light.constant", 1.0f);
-    ShaderManager::Instance().SetFloat(program_, "light.linear", 0.09f);
-    ShaderManager::Instance().SetFloat(program_, "light.quadratic", 0.032f);
+    ShaderManager::Instance().SetVec3(program_, "spotLight.ambient", light_.get()->ambient());
+    ShaderManager::Instance().SetVec3(program_, "spotLight.diffuse", light_.get()->diffuse());
+    ShaderManager::Instance().SetVec3(program_, "spotLight.specular", light_.get()->specular());
+    ShaderManager::Instance().SetVec3(program_, "spotLight.position", light_.get()->position());
+    ShaderManager::Instance().SetVec3(program_, "spotLight.direction", light_.get()->direction());
+    ShaderManager::Instance().SetFloat(program_, "spotLight.cutoff", glm::cos(light_.get()->cutoff()));
+    ShaderManager::Instance().SetFloat(program_, "spotLight.outtercutoff", glm::cos(light_.get()->outterCutoff()));
 
     {
-        ShaderManager::Instance().SetInt(program_, "material.diffuse", 0);
+        ShaderManager::Instance().SetInt(program_, "lightmapMaterial.diffuse", 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture_);
-        ShaderManager::Instance().SetInt(program_, "material.specular", 1);
+        ShaderManager::Instance().SetInt(program_, "lightmapMaterial.specular", 1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, specular_texture_);
-        // ShaderManager::Instance().SetVec3(program_, "material.specular", glm::vec3(0.5f));
-        ShaderManager::Instance().SetFloat(program_, "material.shininess", 64.0f);
+        // ShaderManager::Instance().SetVec3(program_, "lightmapMaterial.specular", glm::vec3(0.5f));
+        ShaderManager::Instance().SetFloat(program_, "lightmapMaterial.shininess", 64.0f);
 
         glm::vec3 cubePositions[] = {
             glm::vec3( 0.0f,  0.0f,  0.0f),

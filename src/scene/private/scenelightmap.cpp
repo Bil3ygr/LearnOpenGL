@@ -17,11 +17,14 @@ SceneLightmap::~SceneLightmap()
 void SceneLightmap::Enter()
 {
     if (!light_)
-        light_ = std::make_shared<Light>(glm::vec3(0.2f), glm::vec3(0.5f), glm::vec3(1.0f));
+    {
+        light_ = std::make_shared<PointLight>(glm::vec3(0.2f), glm::vec3(0.5f), glm::vec3(1.0f));
+        light_.get()->position(glm::vec3(1.2f, 1.0f, 2.0f));
+    }
 
     LightDrawer* light_drawer = new LightDrawer();
     light_drawer->Init();
-    light_drawer->SetLight(light_);
+    light_drawer->SetPointLight(light_);
     AddDrawer(light_drawer);
 
     LightmapDrawer* lightmap_drawer = new LightmapDrawer();

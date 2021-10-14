@@ -16,13 +16,13 @@ public:
 
     void Init();
 
-    void SetLight(std::shared_ptr<Light> light) { light_ = light; }
+    void SetLight(std::shared_ptr<DirLight> light) { light_ = light; }
 
 protected:
     virtual void _Render() override;
 
     SCamera camera_;
-    std::shared_ptr<Light> light_;
+    std::shared_ptr<DirLight> light_;
     GLuint texture_;
     GLuint specular_texture_;
 };
@@ -32,8 +32,12 @@ class LightcasterPointLightDrawer : public LightcasterDrawer
 public:
     void Init();
 
+    void SetLight(std::shared_ptr<PointLight> light) { light_ = light; }
+
 protected:
     void _Render() override;
+
+    std::shared_ptr<PointLight> light_;
 };
 
 class LightcasterSpotLightDrawer : public LightcasterDrawer
@@ -47,6 +51,8 @@ protected:
     void _Render() override;
 
     std::shared_ptr<SpotLight> light_;
+
+    GLuint spot_texture_;
 };
 
 #endif // !SRC_DRAWER_LIGHTCASTERDRAWER_H_

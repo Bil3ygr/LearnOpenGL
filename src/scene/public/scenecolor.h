@@ -22,7 +22,7 @@ public:
 
 private:
     const SceneType type_ = SceneType::kColor;
-    std::shared_ptr<Light> light_;
+    std::shared_ptr<PointLight> light_;
 
     glm::vec3 light_translation_;
 

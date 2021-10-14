@@ -14,6 +14,6 @@ out vec4 fragColor;
 void main()
 {
     Material m = ConvertLightmapToNormal(lightmapMaterial, TexCoords);
-    vec3 result = CalcSpotLight(normal, fragPos, normalize(viewPos - fragPos), m);
+    vec3 result = CalcDirLight(normal, normalize(viewPos - fragPos), m);
     fragColor = vec4(result, 1.0);
 }
