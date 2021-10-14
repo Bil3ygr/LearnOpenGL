@@ -4,10 +4,10 @@
 #include "GLFW/glfw3.h"
 
 #include "mainwindow.h"
-#include "scene/public/sceneheader.h"
-#include "utils/public/keyboardmanager.h"
-#include "utils/public/mousemanager.h"
-#include "camera/public/cameramanager.h"
+#include "scene/sceneheader.h"
+#include "utils/keyboardmanager.h"
+#include "utils/mousemanager.h"
+#include "camera/cameramanager.h"
 
 void RegisterScene()
 {

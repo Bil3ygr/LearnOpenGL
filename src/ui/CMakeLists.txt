@@ -3,8 +3,8 @@ project(LearningOpenGL VERSION 0.1.0)
 
 message(STATUS "Configure ${UI_DIR}")
 
-file(GLOB UI_HEADER_LIST "${PUBLIC}/*.h")
-file(GLOB UI_SRC_LIST "${PRIVATE}/*.cpp")
+file(GLOB UI_HEADER_LIST "*.h")
+file(GLOB UI_SRC_LIST "*.cpp")
 
 set(ALL_FILES
     ${ALL_FILES}

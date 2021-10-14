@@ -6,8 +6,8 @@
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
-#include "utils/public/consts.h"
-#include "utils/public/singleton.h"
+#include "utils/consts.h"
+#include "utils/singleton.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 

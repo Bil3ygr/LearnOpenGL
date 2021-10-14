@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.8.0)
 project(LearningOpenGL VERSION 0.1.0)
 
-set(PUBLIC public)
-set(PRIVATE private)
-
 set(CAMERA_DIR camera)
 set(DRAWER_DIR drawer)
 set(SCENE_DIR scene)

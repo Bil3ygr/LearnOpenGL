@@ -3,8 +3,8 @@ project(LearningOpenGL VERSION 0.1.0)
 
 message(STATUS "Configure ${UTILS_DIR}")
 
-file(GLOB UTILS_HEADER_LIST "${PUBLIC}/*.h")
-file(GLOB UTILS_SRC_LIST "${PRIVATE}/*.cpp")
+file(GLOB UTILS_HEADER_LIST "*.h")
+file(GLOB UTILS_SRC_LIST "*.cpp")
 
 set(ALL_FILES
     ${ALL_FILES}

@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 
-#include "utils/public/helper.h"
-#include "scene/public/sceneheader.h"
-#include "utils/public/keyboardmanager.h"
-#include "utils/public/timemanager.h"
-#include "ui/public/uimanager.h"
+#include "utils/helper.h"
+#include "scene/sceneheader.h"
+#include "utils/keyboardmanager.h"
+#include "utils/timemanager.h"
+#include "ui/uimanager.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
