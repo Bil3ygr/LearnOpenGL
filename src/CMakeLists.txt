@@ -18,10 +18,36 @@ add_subdirectory(${CAMERA_DIR})
 add_subdirectory(${DRAWER_DIR})
 add_subdirectory(${SCENE_DIR})
 add_subdirectory(${UTILS_DIR})
-add_subdirectory(${IMGUI_DIR})
 add_subdirectory(${UI_DIR})
 add_subdirectory(${COMMON_DIR})
 add_subdirectory(${RENDEROBJECT_DIR})
+
+message(STATUS "Process Imgui")
+
+file(GLOB HEADER_LIST "${IMGUI_DIR}/*.h")
+file(GLOB SRC_LIST "${IMGUI_DIR}/*.cpp")
+set(ALL_FILES
+    ${ALL_FILES}
+    ${HEADER_LIST}
+    ${SRC_LIST}
+)
+
+if (WIN32)
+set(BACKEND_HEADER_LIST
+    "${IMGUI_DIR}/backends/imgui_impl_glfw.h"
+    "${IMGUI_DIR}/backends/imgui_impl_opengl3.h"
+    "${IMGUI_DIR}/backends/imgui_impl_opengl3_loader.h"
+)
+set(BACKEND_SRC_LIST
+    "${IMGUI_DIR}/backends/imgui_impl_glfw.cpp"
+    "${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp"
+)
+set(ALL_FILES
+    ${ALL_FILES}
+    ${BACKEND_HEADER_LIST}
+    ${BACKEND_SRC_LIST}
+)
+endif (WIN32)
 
 message(STATUS "Configure source files")
 add_executable(${PROJECT_NAME} ${ALL_FILES})
