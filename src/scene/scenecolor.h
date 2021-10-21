@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "scene.h"
-#include "utils/lightmanager.h"
+#include "light/pointlight.h"
 #include "ui/colorui.h"
 
 class SceneColor : public Scene

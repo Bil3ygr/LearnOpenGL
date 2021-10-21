@@ -6,7 +6,9 @@
 #include <memory>
 
 #include "scene.h"
-#include "utils/lightmanager.h"
+#include "light/dirlight.h"
+#include "light/pointlight.h"
+#include "light/spotlight.h"
 #include "ui/lightcasterui.h"
 
 class SceneLightcaster : public Scene

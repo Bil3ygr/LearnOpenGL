@@ -1,34 +1,39 @@
-#include "renderobject/renderobject.h"
+#include "basenode.h"
 
 #include <algorithm>
 
-RenderObject::RenderObject()
+BaseNode::BaseNode(const std::string& name)
 {
+    name_ = name;
     parent_ = nullptr;
-    children_ = std::vector<RenderObject*>();
+    children_ = std::vector<BaseNode*>();
 
     visible_ = true;
 }
 
-RenderObject::~RenderObject()
+BaseNode::~BaseNode()
 {
     if (parent_)
         parent_->DeleteChild(this);
-    for (RenderObject* child : children_)
+    for (BaseNode* child : children_)
         DeleteChild(child);
     children_.clear();
 }
 
-void RenderObject::AddChild(RenderObject* child)
+void BaseNode::AddChild(BaseNode* child)
 {
     if (!child)
         return;
+
+    for (auto _child : children_)
+        if (_child == child)
+            return;
 
     children_.emplace_back(child);
     child->SetParent(this);
 }
 
-bool RenderObject::DeleteChild(RenderObject* child)
+bool BaseNode::DeleteChild(BaseNode* child)
 {
     if (!child)
         return false;
@@ -42,14 +47,14 @@ bool RenderObject::DeleteChild(RenderObject* child)
     return false;
 }
 
-void RenderObject::SetParent(RenderObject* parent)
+void BaseNode::SetParent(BaseNode* parent)
 {
     if (parent_ == parent)
         return;
 
     if (parent_)
     {
-        RenderObject* old_parent = parent_;
+        BaseNode* old_parent = parent_;
         parent_ = nullptr;
         old_parent->DeleteChild(this);
     }
@@ -59,13 +64,17 @@ void RenderObject::SetParent(RenderObject* parent)
         parent_->AddChild(this);
 }
 
-void RenderObject::Draw()
+void BaseNode::Draw()
 {
     if (!visible())
         return;
 
     Render();
 
-    for (RenderObject* child : children_)
+    for (BaseNode* child : children_)
         child->Draw();
+}
+
+void BaseNode::Render()
+{
 }

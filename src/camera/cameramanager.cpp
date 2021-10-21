@@ -3,7 +3,7 @@
 #include "GLFW/glfw3.h"
 
 #include "utils/helper.h"
-#include "utils/keyboardmanager.h"
+#include "control/keyboardmanager.h"
 
 CameraManager::CameraManager()
 {

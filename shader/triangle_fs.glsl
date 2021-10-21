@@ -1,13 +1,16 @@
 #version 460 core
-out vec4 FragColor;
+
+uniform bool enableColor;
+uniform vec4 color;
 
 in vec4 vertexColor;
 
+out vec4 fragColor;
+
 void main()
 {
-    // fixed color
-    // FragColor = vec4(1.0, 0.5, 0.2, 1.0);
-
-    // color from vertex shader
-    FragColor = vertexColor;
+    if (enableColor)
+        fragColor = color;
+    else
+        fragColor = vertexColor;
 }

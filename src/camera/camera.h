@@ -6,7 +6,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "camerahelper.h"
-#include "utils/shadermanager.h"
+#include "render/shadermanager.h"
 #include "utils/timemanager.h"
 
 class Camera

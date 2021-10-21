@@ -8,6 +8,7 @@
 
 #include "utils/consts.h"
 #include "utils/singleton.h"
+#include "game/game.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
@@ -19,16 +20,19 @@ private:
     ~MainWindow();
 
 public:
-    void Init();
+    void Init(Game* game);
     bool IsSuccess() { return success_; }
 
+    void Run();
     void Loop();
 
     void Close();
-    bool Alive();
     const GLFWwindow* window() { return window_; }
 
 private:
+    bool Alive();
+
+    Game* game_;
     GLFWwindow* window_;
     bool initial_;
     bool success_;

@@ -2,7 +2,7 @@
 
 #include "utils/helper.h"
 #include "scene/sceneheader.h"
-#include "utils/keyboardmanager.h"
+#include "control/keyboardmanager.h"
 #include "utils/timemanager.h"
 #include "ui/uimanager.h"
 
@@ -25,42 +25,7 @@ MainWindow::~MainWindow()
     window_ = nullptr;
 }
 
-void MainWindow::Loop()
-{
-    if (!success_ || !window_)
-        return;
-
-    float current_time = glfwGetTime();
-    TimeManager::Instance().deltaTime(current_time - last_time_);
-    last_time_ = current_time;
-
-    KeyboardManager::Instance().ProcessKeyEvent(window_);
-
-    SceneManager::Instance().RenderScene();
-
-    glfwSwapBuffers(window_);
-    glfwPollEvents();
-}
-
-void MainWindow::Close()
-{
-    glfwSetWindowShouldClose(window_, true);
-}
-
-bool MainWindow::Alive()
-{
-    if (!success_ || !window_)
-        return false;
-    if (glfwWindowShouldClose(window_))
-    {
-        glfwTerminate();
-        window_ = nullptr;
-        return false;
-    }
-    return true;
-}
-
-void MainWindow::Init()
+void MainWindow::Init(Game* game)
 {
     if (initial_)
         return;
@@ -92,4 +57,56 @@ void MainWindow::Init()
     glfwSetFramebufferSizeCallback(window_, FramebufferSizeCallback);
 
     success_ = true;
+    game_ = game;
+}
+
+void MainWindow::Run()
+{
+    if (!success_)
+        return;
+
+    game_->Init();
+
+    while (Alive())
+        Loop();
+}
+
+void MainWindow::Loop()
+{
+    if (!success_ || !window_)
+        return;
+
+    float current_time = glfwGetTime();
+    TimeManager::Instance().deltaTime(current_time - last_time_);
+    last_time_ = current_time;
+
+    KeyboardManager::Instance().ProcessKeyEvent(window_);
+
+    game_->GameLoop();
+
+    SceneManager::Instance().RenderScene();
+
+    UIManager::Instance().Render();
+
+    glfwSwapBuffers(window_);
+    glfwPollEvents();
+}
+
+void MainWindow::Close()
+{
+    glfwSetWindowShouldClose(window_, true);
+}
+
+bool MainWindow::Alive()
+{
+    if (!success_ || !window_)
+        return false;
+
+    if (glfwWindowShouldClose(window_))
+    {
+        glfwTerminate();
+        window_ = nullptr;
+        return false;
+    }
+    return true;
 }

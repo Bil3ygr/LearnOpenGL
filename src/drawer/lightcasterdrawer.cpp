@@ -1,8 +1,8 @@
 #include "drawer/lightcasterdrawer.h"
 
 #include "utils/consts.h"
-#include "utils/mousemanager.h"
-#include "utils/texturemanager.h"
+#include "control/mousemanager.h"
+#include "render/texturemanager.h"
 
 LightcasterDrawer::LightcasterDrawer()
 {

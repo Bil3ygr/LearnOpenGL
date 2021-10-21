@@ -9,7 +9,7 @@
 #include "glad/glad.h"
 #include "glm/glm.hpp"
 
-#include "singleton.h"
+#include "utils/singleton.h"
 
 struct ShaderGroup
 {

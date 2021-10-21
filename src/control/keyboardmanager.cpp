@@ -1,4 +1,4 @@
-#include "utils/keyboardmanager.h"
+#include "control/keyboardmanager.h"
 
 #include <string>
 

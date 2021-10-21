@@ -5,9 +5,9 @@
 #include "GLFW/glfw3.h"
 
 #include "utils/consts.h"
-#include "utils/shadermanager.h"
-#include "utils/texturemanager.h"
-#include "utils/mousemanager.h"
+#include "render/shadermanager.h"
+#include "render/texturemanager.h"
+#include "control/mousemanager.h"
 
 SpaceDrawer::SpaceDrawer() : BaseDrawer()
 {

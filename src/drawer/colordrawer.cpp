@@ -1,8 +1,8 @@
 #include "drawer/colordrawer.h"
 
 #include "utils/consts.h"
-#include "utils/mousemanager.h"
-#include "utils/shadermanager.h"
+#include "control/mousemanager.h"
+#include "render/shadermanager.h"
 
 ColorDrawer::ColorDrawer() : BaseDrawer()
 {

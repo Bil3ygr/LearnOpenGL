@@ -1,4 +1,4 @@
-#include "utils/mousemanager.h"
+#include "mousemanager.h"
 
 #include "utils/helper.h"
 

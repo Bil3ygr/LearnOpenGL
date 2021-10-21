@@ -6,7 +6,8 @@
 #include "basedrawer.h"
 
 #include "camera/cameramanager.h"
-#include "utils/lightmanager.h"
+#include "light/pointlight.h"
+#include "light/spotlight.h"
 
 class LightDrawer : public BaseDrawer
 {

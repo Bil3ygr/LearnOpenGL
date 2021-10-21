@@ -6,7 +6,6 @@
 #include "scene.h"
 
 #include "ui/spaceui.h"
-#include "utils/lightmanager.h"
 
 class SceneSpace: public Scene
 {

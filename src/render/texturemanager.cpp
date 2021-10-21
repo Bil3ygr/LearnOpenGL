@@ -1,4 +1,4 @@
-#include "utils/texturemanager.h"
+#include "texturemanager.h"
 
 #include "utils/helper.h"
 #include "glm/gtc/type_ptr.hpp"

@@ -1,4 +1,4 @@
-#include "utils/shadermanager.h"
+#include "shadermanager.h"
 
 #include <set>
 #include <vector>

@@ -6,7 +6,9 @@
 #include "basedrawer.h"
 
 #include "camera/cameramanager.h"
-#include "utils/lightmanager.h"
+#include "light/dirlight.h"
+#include "light/pointlight.h"
+#include "light/spotlight.h"
 
 class LightcasterDrawer : public BaseDrawer
 {

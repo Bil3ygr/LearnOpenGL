@@ -10,7 +10,7 @@
 
 #include "GLFW/glfw3.h"
 
-#include "singleton.h"
+#include "utils/singleton.h"
 
 typedef std::map<std::string, std::function<void()> > Functions;
 

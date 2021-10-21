@@ -1,6 +1,6 @@
 #include "drawer/lightdrawer.h"
 
-#include "utils/mousemanager.h"
+#include "control/mousemanager.h"
 #include "utils/helper.h"
 
 LightDrawer::LightDrawer()

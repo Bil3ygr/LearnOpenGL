@@ -10,7 +10,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "singleton.h"
+#include "utils/singleton.h"
 #include "mainwindow.h"
 
 enum class EventType

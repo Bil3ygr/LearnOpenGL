@@ -1,6 +1,6 @@
 #include "camera/camera.h"
 
-#include "utils/mousemanager.h"
+#include "control/mousemanager.h"
 #include "utils/helper.h"
 
 Camera::Camera()

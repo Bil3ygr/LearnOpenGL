@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "scenemanager.h"
-#include "utils/lightmanager.h"
+#include "light/pointlight.h"
 #include "ui/lightmapui.h"
 
 class SceneLightmap : public Scene

@@ -5,7 +5,7 @@
 
 #include "scenemanager.h"
 #include "scenedefault.h"
-#include "scenetriangle.h"
+//#include "scenetriangle.h"
 #include "scenetexture.h"
 #include "scenespace.h"
 #include "scenecolor.h"
