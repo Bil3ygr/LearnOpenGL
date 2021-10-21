@@ -2,18 +2,8 @@
 
 #include "imgui.h"
 
-#include "utils/helper.h"
 #include "node/triangle.h"
 #include "node/rectangle.h"
-
-SceneTriangle::~SceneTriangle()
-{
-}
-
-void SceneTriangle::Render()
-{
-    SceneWithUI::Render();
-}
 
 void SceneTriangle::RenderUI()
 {
@@ -64,7 +54,7 @@ void SceneTriangle::RenderUI()
             float dynamic_y = abs(sin(glfwGetTime()));
 
             VertexInfo tv = (*triangle)[0];
-            ImGui::Text("Vertex1: (%.2f, %.2f, %.2f)", tv.vertex.x, dynamic_y + 1.0f, tv.vertex.z);
+            ImGui::Text("Vertex1: (%.2f, %.2f, %.2f)", tv.vertex.x, dynamic_y + 1.0, tv.vertex.z);
             (*triangle)[0].vertex = glm::vec3(tv.vertex.x, dynamic_y + 1.0f, tv.vertex.z);
             tv = (*triangle)[1];
             ImGui::Text("Vertex2: (%.2f, %.2f, %.2f)", tv.vertex.x, dynamic_y, tv.vertex.z);
@@ -119,9 +109,4 @@ void SceneTriangle::Enter()
     (*rectangle)[3].vertex = glm::vec3(1.0f, 0.0f, 0.0f);
     (*rectangle)[3].color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
     AddNode(rectangle);
-}
-
-void SceneTriangle::Leave()
-{
-    Scene::Leave();
 }

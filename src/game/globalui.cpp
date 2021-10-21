@@ -2,9 +2,9 @@
 
 #include "mainwindow.h"
 #include "game.h"
-#include "scenetriangle.h"
-#include "scenewithui.h"
 #include "scene/scenemanager.h"
+#include "scenetriangle.h"
+#include "scenetexture.h"
 
 void GlobalUI::Render()
 {
@@ -26,6 +26,12 @@ void GlobalUI::Render()
                 auto scene = dynamic_cast<SceneTriangle*>(SceneManager::Instance().GetCurrentScene());
                 if (!scene)
                     SceneManager::Instance().SwitchScene(new SceneTriangle());
+            }
+            if (ImGui::MenuItem("Texture"))
+            {
+                auto scene = dynamic_cast<SceneTexture*>(SceneManager::Instance().GetCurrentScene());
+                if (!scene)
+                    SceneManager::Instance().SwitchScene(new SceneTexture());
             }
             ImGui::EndMenu();
         }

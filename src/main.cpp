@@ -21,9 +21,9 @@
 //    REGISTER_SCENE_CREATOR(SceneType::kLightcaster, SceneLightcaster);
 //}
 //
-//void RegisterKeyboard()
-//{
-//    REGISTER_KEYBOARD_PRESS(GLFW_KEY_ESCAPE, "Escape", MainWindow::Instance().Close());
+void RegisterKeyboard()
+{
+   REGISTER_KEYBOARD_PRESS(GLFW_KEY_ESCAPE, "Escape", MainWindow::Instance().Close());
 //    REGISTER_KEYBOARD_PRESS(GLFW_KEY_0, std::string(SceneTypeToString(SceneType::kDefault)), SWITCH_SCENE(SceneType::kDefault));
 //    REGISTER_KEYBOARD_PRESS(GLFW_KEY_1, std::string(SceneTypeToString(SceneType::kTriangle)), SWITCH_SCENE(SceneType::kTriangle));
 //    REGISTER_KEYBOARD_PRESS(GLFW_KEY_2, std::string(SceneTypeToString(SceneType::kTexture)), SWITCH_SCENE(SceneType::kTexture));
@@ -31,7 +31,7 @@
 //    REGISTER_KEYBOARD_PRESS(GLFW_KEY_4, std::string(SceneTypeToString(SceneType::kColor)), SWITCH_SCENE(SceneType::kColor));
 //    REGISTER_KEYBOARD_PRESS(GLFW_KEY_5, std::string(SceneTypeToString(SceneType::kLightmap)), SWITCH_SCENE(SceneType::kLightmap));
 //    REGISTER_KEYBOARD_PRESS(GLFW_KEY_6, std::string(SceneTypeToString(SceneType::kLightcaster)), SWITCH_SCENE(SceneType::kLightcaster));
-//}
+}
 //
 //void InputModeChanged(int button, int action, int mods)
 //{
@@ -62,11 +62,12 @@
 
 int main()
 {
+    RegisterKeyboard();
+
     MainWindow::Instance().Init(new Game());
     MainWindow::Instance().Run();
 
     // RegisterScene();
-    // RegisterKeyboard();
     // RegisterMouse();
 
     return 0;

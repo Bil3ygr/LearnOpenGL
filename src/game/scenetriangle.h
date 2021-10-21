@@ -5,18 +5,14 @@
 
 #include "scenewithui.h"
 
-#include "utils/singleton.h"
-
 class SceneTriangle: public SceneWithUI
 {
 public:
-    ~SceneTriangle() override;
+    ~SceneTriangle() {}
 
-    void Render();
-    void RenderUI();
+    void RenderUI() override;
 
     void Enter() override;
-    void Leave() override;
 };
 
 #endif // !SRC_GAME_SCENETRIANGLE_H_
