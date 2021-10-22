@@ -62,6 +62,9 @@ void Triangle::PreRender()
 {
     if (update_)
     {
+        if (vao_)
+            glDeleteVertexArrays(1, &vao_);
+
         float* data = new float[LEN_ARRAY];
         for (int i = 0; i < LEN_ARRAY; i++)
         {
@@ -74,5 +77,6 @@ void Triangle::PreRender()
         int pointers[] = { LEN_VTX, LEN_CLR };
         vao_ = DrawerHelper::GetVertexArrayObject(data, sizeof(float) * LEN_ARRAY, pointers, 2);
         delete[] data;
+        update_ = false;
     }
 }
