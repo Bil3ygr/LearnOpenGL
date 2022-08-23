@@ -3,7 +3,7 @@
 #ifndef SRC_NODE_TEXTURENODE_H_
 #define SRC_NODE_TEXTURENODE_H_
 
-#include "glad.h"
+#include "glad/glad.h"
 
 #include "basenode.h"
 

@@ -2,7 +2,7 @@
 
 #include "GLFW/glfw3.h"
 
-#include "utils/shadermanager.h"
+#include "render/shadermanager.h"
 #include "utils/helper.h"
 
 void TriangleDrawer::Init()

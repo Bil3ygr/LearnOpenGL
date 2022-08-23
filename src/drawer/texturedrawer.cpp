@@ -5,8 +5,8 @@
 #include "GLFW/glfw3.h"
 
 #include "utils/helper.h"
-#include "utils/shadermanager.h"
-#include "utils/texturemanager.h"
+#include "render/shadermanager.h"
+#include "render/texturemanager.h"
 
 TextureDrawer::TextureDrawer() : BaseDrawer()
 {

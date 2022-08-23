@@ -31,6 +31,9 @@ popd
 popd
 
 @REM pause
+
+@REM start build\LearningOpenGL.sln
+
 exit /b 0
 
 :LogWithTime
