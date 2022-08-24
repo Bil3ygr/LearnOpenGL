@@ -24,7 +24,7 @@ void UIManager::Init()
     ImGui::CreateContext();
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(const_cast<GLFWwindow*>(MainWindow::Instance().window()), true);
-    ImGui_ImplOpenGL3_Init("#version 460");
+    ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 boost::uuids::uuid UIManager::AddUI(BaseUI* ui)

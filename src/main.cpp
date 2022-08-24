@@ -64,8 +64,10 @@ int main()
 {
     RegisterKeyboard();
 
-    MainWindow::Instance().Init(new Game());
-    MainWindow::Instance().Run();
+    if (MainWindow::Instance().Init(new Game()))
+    {
+        MainWindow::Instance().Run();
+    }
 
     // RegisterScene();
     // RegisterMouse();

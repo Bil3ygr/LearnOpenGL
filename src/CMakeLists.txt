@@ -34,13 +34,8 @@ message(STATUS "Process ${IMGUI_DIR}")
 
 file(GLOB HEADER_LIST "${IMGUI_DIR}/*.h")
 file(GLOB SRC_LIST "${IMGUI_DIR}/*.cpp")
-set(ALL_FILES
-    ${ALL_FILES}
-    ${HEADER_LIST}
-    ${SRC_LIST}
-)
+set(ALL_FILES ${ALL_FILES} ${HEADER_LIST} ${SRC_LIST})
 
-if (WIN32)
 set(BACKEND_HEADER_LIST
     "${IMGUI_DIR}/backends/imgui_impl_glfw.h"
     "${IMGUI_DIR}/backends/imgui_impl_opengl3.h"
@@ -50,12 +45,13 @@ set(BACKEND_SRC_LIST
     "${IMGUI_DIR}/backends/imgui_impl_glfw.cpp"
     "${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp"
 )
-set(ALL_FILES
-    ${ALL_FILES}
-    ${BACKEND_HEADER_LIST}
-    ${BACKEND_SRC_LIST}
-)
-endif (WIN32)
+set(ALL_FILES ${ALL_FILES} ${BACKEND_HEADER_LIST} ${BACKEND_SRC_LIST})
+
+if (APPLE)
+set(IMGUI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui)
+set(IMGUI_BACKENDS_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends)
+set(INCLUDE_DIR "${INCLUDE_DIR} ${IMGUI_INCLUDE_DIR} ${IMGUI_BACKENDS_INCLUDE_DIR}" PARENT_SCOPE)
+endif ()
 
 message(STATUS "Configure source files")
 add_executable(${PROJECT_NAME} ${ALL_FILES})
@@ -64,10 +60,8 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${ALL_FILES})
 message(STATUS "Link static libraries")
 # 链接lib
 if (WIN32)
-set(LIB_FILES
-    glfw3.lib
-)
-target_link_libraries(${PROJECT_NAME} ${LIB_FILES})
+# set(LIB_FILES glfw3.lib)
+# target_link_libraries(${PROJECT_NAME} ${LIB_FILES})
 endif (WIN32)
 if (APPLE)
 endif (APPLE)

@@ -20,7 +20,7 @@ private:
     ~MainWindow();
 
 public:
-    void Init(Game* game);
+    bool Init(Game* game);
     bool IsSuccess() { return success_; }
 
     void Run();

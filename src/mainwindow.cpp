@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 
+#include "iostream"
+
 #include "utils/helper.h"
 #include "scene/sceneheader.h"
 #include "control/keyboardmanager.h"
@@ -9,6 +11,11 @@
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
+}
+
+void ErrorHandleCallback(int error_code, const char* description)
+{
+	std::cout <<  "OpenGL error: " << description << std::endl;
 }
 
 MainWindow::MainWindow()
@@ -25,24 +32,35 @@ MainWindow::~MainWindow()
     window_ = nullptr;
 }
 
-void MainWindow::Init(Game* game)
+bool MainWindow::Init(Game* game)
 {
     if (initial_)
-        return;
+    {
+        return false;
+    }
 
     initial_ = true;
 
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwSetErrorCallback(ErrorHandleCallback);
+
+    if (!glfwInit())
+    {
+        return false;
+    }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR_VERSION);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR_VERSION);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#if __APPLE__
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
     window_ = glfwCreateWindow(WITDH, HEIGHT, PROJECT_NAME, NULL, NULL);
     if (!window_)
     {
         ERROR("Failed to create GLFW window\n");
         glfwTerminate();
-        return;
+        return false;
     }
     glfwMakeContextCurrent(window_);
 
@@ -50,7 +68,7 @@ void MainWindow::Init(Game* game)
     {
         ERROR("Failed to initialize GLAD\n");
         glfwTerminate();
-        return;
+        return false;
     }
 
     glViewport(0, 0, WITDH, HEIGHT);
@@ -58,6 +76,8 @@ void MainWindow::Init(Game* game)
 
     success_ = true;
     game_ = game;
+
+    return true;
 }
 
 void MainWindow::Run()

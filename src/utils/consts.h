@@ -5,6 +5,12 @@
 
 #define WITDH 800
 #define HEIGHT 800
+#define OPENGL_MAJOR_VERSION 4
+#if __APPLE__
+#define OPENGL_MINOR_VERSION 1
+#else
+#define OPENGL_MINOR_VERSION 6
+#endif
 #define PROJECT_NAME "LearnOpenGL"
 
 extern float array_cube_normal[216];
