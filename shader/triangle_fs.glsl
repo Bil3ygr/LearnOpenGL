@@ -1,4 +1,4 @@
-#version 460 core
+#version 410 core
 
 uniform bool enableColor;
 uniform vec4 color;

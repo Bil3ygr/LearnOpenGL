@@ -1,4 +1,4 @@
-#version 460 core
+#version 410 core
 #extension GL_ARB_shading_language_include : require
 #include "/shader/defines_material.glsl"
 #include "/shader/defines_light.glsl"

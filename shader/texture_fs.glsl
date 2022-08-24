@@ -1,4 +1,4 @@
-#version 460 core
+#version 410 core
 
 uniform sampler2D texture0;
 uniform sampler2D texture1;
